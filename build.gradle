@@ -28,6 +28,14 @@ repositories {
 
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter')
+	implementation('org.apache.hbase:hbase-client:2.1.4'){
+	    exclude group: 'tomcat'
+		exclude group: 'log4j'
+		exclude group: 'org.slf4j'
+		exclude group: 'org.mortbay.jetty'
+		exclude group: 'javax.servlet', module: 'servlet-api'
+	}
 	runtimeOnly('org.springframework.boot:spring-boot-devtools')
+	compileOnly('org.springframework.boot:spring-boot-configuration-processor')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
