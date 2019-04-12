@@ -1,0 +1,45 @@
+{
+  "groups": [
+    {
+      "name": "hbase.boot",
+      "type": "com.bytehonor.sdk.boot.hbase.config.HbaseProperties",
+      "sourceType": "com.bytehonor.sdk.boot.hbase.config.HbaseProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "hbase.boot.conn-core-pool-size",
+      "type": "java.lang.Integer",
+      "description": "Hbase连接池的最小线程数，默认为10",
+      "sourceType": "com.bytehonor.sdk.boot.hbase.config.HbaseProperties",
+      "defaultValue": 10
+    },
+    {
+      "name": "hbase.boot.conn-max-pool-size",
+      "type": "java.lang.Integer",
+      "description": "Hbase连接池的最大线程数，默认为Integer.MAX_VALUE",
+      "sourceType": "com.bytehonor.sdk.boot.hbase.config.HbaseProperties"
+    },
+    {
+      "name": "hbase.boot.scanner-caching",
+      "type": "java.lang.Integer",
+      "description": "Hbase的表scanner的caching大小，默认为5000",
+      "sourceType": "com.bytehonor.sdk.boot.hbase.config.HbaseProperties",
+      "defaultValue": 5000
+    },
+    {
+      "name": "hbase.boot.zk-client-port",
+      "type": "java.lang.String",
+      "description": "Hbase使用的zookeeper集群的clientPort",
+      "sourceType": "com.bytehonor.sdk.boot.hbase.config.HbaseProperties"
+    },
+    {
+      "name": "hbase.boot.zk-quorum",
+      "type": "java.lang.String",
+      "description": "Hbase使用的zookeeper集群的URL配置，多个host中间用逗号（,）分割，默认值：localhost",
+      "sourceType": "com.bytehonor.sdk.boot.hbase.config.HbaseProperties",
+      "defaultValue": "localhost"
+    }
+  ],
+  "hints": []
+}
