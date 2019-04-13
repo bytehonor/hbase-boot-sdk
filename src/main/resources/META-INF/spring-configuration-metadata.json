@@ -36,7 +36,7 @@
     {
       "name": "hbase.boot.zk-quorum",
       "type": "java.lang.String",
-      "description": "Hbase使用的zookeeper集群的URL配置，多个host中间用逗号（,）分割，默认值：localhost",
+      "description": "Hbase使用的zookeeper集群的URL配置，多个host中间用英文逗号，like：localhost, ConditionalOnProperty",
       "sourceType": "com.bytehonor.sdk.boot.hbase.config.HbaseProperties",
       "defaultValue": "localhost"
     }

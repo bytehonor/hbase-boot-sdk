@@ -5,6 +5,7 @@ import org.apache.hadoop.hbase.HConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,7 @@ public class HbaseAutoConfiguration {
     private HbaseProperties hbaseProperties;
 
     @Bean
+    @ConditionalOnProperty(prefix = "hbase.boot", name = "zk-quorum")
     @ConditionalOnMissingBean(HbaseTemplate.class)
     public HbaseTemplate hbaseTemplate() {
         org.apache.hadoop.conf.Configuration configuration = HBaseConfiguration.create();

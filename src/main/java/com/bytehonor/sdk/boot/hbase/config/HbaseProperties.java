@@ -6,9 +6,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class HbaseProperties {
 
     /**
-     * Hbase使用的zookeeper集群的URL配置，多个host中间用逗号（,）分割，默认值：localhost
+     * Hbase使用的zookeeper集群的URL配置，多个host中间用英文逗号，like：localhost, ConditionalOnProperty
      */
-    private String zkQuorum = "localhost";
+    private String zkQuorum;
 
     /**
      * Hbase使用的zookeeper集群的clientPort
