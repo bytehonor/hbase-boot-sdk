@@ -26,17 +26,14 @@ import org.springframework.util.Assert;
 import org.springframework.util.StopWatch;
 
 import com.bytehonor.sdk.boot.hbase.config.HbaseProperties;
-
+import com.bytehonor.sdk.boot.hbase.error.HbaseSdkException;
 
 /**
  * nubia框架Hbase的操作模板类
  *
- * @author fulei
- * @version 2017-07-17 15:29
- * @since 1.0
  */
 public class HbaseTemplate implements HbaseOperations {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(HbaseTemplate.class);
 
     private HbaseProperties hbaseProperties;
@@ -46,8 +43,8 @@ public class HbaseTemplate implements HbaseOperations {
     private volatile Connection connection;
 
     public HbaseTemplate(Configuration configuration, HbaseProperties hbaseProperties) {
-        Assert.notNull(configuration, "configuration不能为null！");
-        Assert.notNull(hbaseProperties, "hbaseProperties不能为null！");
+        Assert.notNull(configuration, "configuration can not be null！");
+        Assert.notNull(hbaseProperties, "hbaseProperties can not be null！");
         this.configuration = configuration;
         this.hbaseProperties = hbaseProperties;
         this.initConnection();
@@ -76,7 +73,7 @@ public class HbaseTemplate implements HbaseOperations {
             poolExecutor.prestartCoreThread();
             this.connection = ConnectionFactory.createConnection(configuration, poolExecutor);
         } catch (IOException e) {
-            LOG.error("hbase connection资源池创建失败！");
+            LOG.error("hbase initConnection failed", e);
         }
     }
 
@@ -103,15 +100,14 @@ public class HbaseTemplate implements HbaseOperations {
             table = this.getConnection().getTable(TableName.valueOf(tableName));
             return mapper.doInTable(table);
         } catch (Throwable throwable) {
-            //throw new NubiaCommonException(); //TODO
-            return null;
+            throw new HbaseSdkException(throwable);
         } finally {
             if (null != table) {
                 try {
                     table.close();
                     sw.stop();
                 } catch (IOException e) {
-                    LOG.error("hbase资源释放失败");
+                    LOG.error("hbase close failed", e);
                 }
             }
         }
@@ -172,8 +168,7 @@ public class HbaseTemplate implements HbaseOperations {
                     byte[] family = Bytes.toBytes(familyName);
                     if (StringUtils.isNotBlank(qualifier)) {
                         get.addColumn(family, Bytes.toBytes(qualifier));
-                    }
-                    else {
+                    } else {
                         get.addFamily(family);
                     }
                 }
@@ -194,7 +189,8 @@ public class HbaseTemplate implements HbaseOperations {
             @Override
             public Boolean doInTable(Table htable) throws Throwable {
                 boolean isDone = false;
-                Put put = new Put(Bytes.toBytes(rowName)).addColumn(Bytes.toBytes(familyName), Bytes.toBytes(qualifier), data);
+                Put put = new Put(Bytes.toBytes(rowName)).addColumn(Bytes.toBytes(familyName), Bytes.toBytes(qualifier),
+                        data);
                 htable.put(put);
                 isDone = true;
                 return isDone;
