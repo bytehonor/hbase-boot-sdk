@@ -3,6 +3,7 @@ package com.bytehonor.sdk.boot.hbase.core;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -91,8 +92,8 @@ public class HbaseTemplate implements HbaseOperations {
 
     @Override
     public <T> T execute(String tableName, TableCallback<T> mapper) {
-        Assert.notNull(mapper, "Callback object must not be null");
-        Assert.notNull(tableName, "No table specified");
+        Objects.requireNonNull(tableName, "tableName");
+        Objects.requireNonNull(mapper, "mapper");
 
         StopWatch sw = new StopWatch();
         sw.start();
@@ -129,7 +130,7 @@ public class HbaseTemplate implements HbaseOperations {
     }
 
     @Override
-    public <T> List<T> find(String tableName, Scan scan, RowMapper<T> mapper) {
+    public <T> List<T> find(final String tableName, final Scan scan, final RowMapper<T> mapper) {
         return this.execute(tableName, new TableCallback<List<T>>() {
 
             @Override
@@ -160,7 +161,8 @@ public class HbaseTemplate implements HbaseOperations {
     }
 
     @Override
-    public <T> T get(String tableName, String rowName, String familyName, String qualifier, RowMapper<T> mapper) {
+    public <T> T get(String tableName, final String rowName, final String familyName, final String qualifier,
+            final RowMapper<T> mapper) {
         return this.execute(tableName, new TableCallback<T>() {
             @Override
             public T doInTable(Table table) throws Throwable {
@@ -180,7 +182,9 @@ public class HbaseTemplate implements HbaseOperations {
     }
 
     @Override
-    public boolean put(String tableName, String rowName, String familyName, String qualifier, byte[] data) {
+    public boolean put(String tableName, final String rowName, final String familyName, final String qualifier,
+            final byte[] data) {
+        Objects.requireNonNull(tableName, "tableName");
         Assert.hasLength(rowName, "No rowName specified");
         Assert.hasLength(familyName, "No familyName specified");
         Assert.hasLength(qualifier, "No qualifier specified");
@@ -205,7 +209,7 @@ public class HbaseTemplate implements HbaseOperations {
     }
 
     @Override
-    public boolean delete(String tableName, String rowName, String familyName, String qualifier) {
+    public boolean delete(String tableName, final String rowName, final String familyName, final String qualifier) {
         Assert.hasLength(rowName, "No familyName specified");
         Assert.hasLength(familyName, "No familyName specified");
         return execute(tableName, new TableCallback<Boolean>() {
