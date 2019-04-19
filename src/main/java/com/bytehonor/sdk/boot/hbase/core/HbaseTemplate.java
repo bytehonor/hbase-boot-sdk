@@ -72,6 +72,7 @@ public class HbaseTemplate implements HbaseOperations {
                     hbaseProperties.getConnMaxPoolSize(), 60L, TimeUnit.SECONDS, new SynchronousQueue<>());
             poolExecutor.prestartCoreThread();
             this.connection = ConnectionFactory.createConnection(configuration, poolExecutor);
+            LOG.info("HbaseTemplate initConnection ok");
         } catch (IOException e) {
             LOG.error("hbase initConnection failed", e);
         }

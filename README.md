@@ -11,3 +11,11 @@ If you are using an additional-spring-configuration-metadata.json file, the comp
 
 compileJava.dependsOn(processResources)
 ```
+
+## properties
+```
+hbase.boot.zk-quorum=10.206.19.110,10.206.19.111,10.206.19.112
+hbase.boot.scanner-caching=2000
+hbase.boot.conn-core-pool-size=100
+hbase.boot.conn-max-pool-size=200
+```
