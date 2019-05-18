@@ -20,7 +20,7 @@ import com.bytehonor.sdk.boot.hbase.core.HbaseTemplate;
 @Configuration
 @EnableConfigurationProperties(HbaseProperties.class)
 @ConditionalOnClass(HbaseTemplate.class)
-public class HbaseAutoConfiguration {
+public class HbaseBootSdkAutoConfiguration {
 
     @Autowired
     private HbaseProperties hbaseProperties;

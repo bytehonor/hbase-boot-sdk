@@ -12,7 +12,7 @@ import com.bytehonor.sdk.boot.hbase.core.HbaseTemplate;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class HbaseAutoConfigurationTest {
+public class HbaseBootSdkAutoConfigurationTest {
 
     @Autowired(required = false)
     private HbaseTemplate hbaseTemplate;
