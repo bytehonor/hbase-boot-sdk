@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.1.0.RELEASE'
+		springBootVersion = '2.1.4.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -17,7 +17,7 @@ apply plugin: 'io.spring.dependency-management'
 apply from: 'repository.gradle'
 
 group = 'com.bytehonor.sdk'
-version = '0.1.4'
+version = '0.1.5'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -36,6 +36,6 @@ dependencies {
 		exclude group: 'javax.servlet', module: 'servlet-api'
 	}
 	runtimeOnly('org.springframework.boot:spring-boot-devtools')
-	compileOnly('org.springframework.boot:spring-boot-configuration-processor')
+	annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
