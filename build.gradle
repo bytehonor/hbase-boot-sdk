@@ -17,7 +17,7 @@ apply plugin: 'io.spring.dependency-management'
 apply from: 'repository.gradle'
 
 group = 'com.bytehonor.sdk'
-version = '0.1.5'
+version = '0.1.6'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -33,7 +33,7 @@ dependencies {
 		exclude group: 'log4j'
 		exclude group: 'org.slf4j'
 		exclude group: 'org.mortbay.jetty'
-		exclude group: 'javax.servlet', module: 'servlet-api'
+		exclude group: 'javax.servlet'
 	}
 	runtimeOnly('org.springframework.boot:spring-boot-devtools')
 	annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
