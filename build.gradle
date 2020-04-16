@@ -1,13 +1,14 @@
 plugins {
-    id 'org.springframework.boot' version '2.2.1.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
+    id 'java-library'
 }
 
 apply from: 'repository.gradle'
 
 group = 'com.bytehonor.sdk'
-version = '0.1.8'
+version = '0.2.0'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
@@ -17,6 +18,9 @@ configurations {
     runtimeClasspath {
         extendsFrom developmentOnly
     }
+    compileOnly {
+		extendsFrom annotationProcessor
+	}
 }
 
 
@@ -25,8 +29,8 @@ repositories {
 }
 
 dependencies {
-    implementation('com.google.guava:guava:28.0-jre')
-    implementation('org.apache.hbase:hbase-client:2.2.3'){
+    api('com.google.guava:guava:29.0-jre')
+    api('org.apache.hbase:hbase-client:2.2.4'){
         exclude group: 'tomcat'
         exclude group: 'log4j'
         exclude group: 'org.slf4j'
